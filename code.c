@@ -9,7 +9,7 @@ struct no{
     char nome[101];
     char tel[11];
     char endereco[101];
-    char cpf[12];
+    int cep;
     char dataNascimento[11];
     No* prox;
     No* ante;
@@ -18,24 +18,48 @@ struct no{
 char* le_string(int n){
     int qtd = n;
     char* string = (char*)malloc(sizeof(char)*qtd);
+    __fpurge(stdin);
     scanf("%[^\n]s", string);
+    __fpurge(stdin);
     return string;
 }
 
-void* inserir_contato(No* lista){
-    No* aux = lista;
+int le_inteiro(){
+    int var;
+    __fpurge(stdin);
+    scanf("%d", &var);
+    __fpurge(stdin);
+    return var;
+}
+
+void* imprime_lista(No* lista){
+  No* aux = lista;
+  while(aux != NULL){
+      printf("%s\n", lista->nome);
+      printf("%s\n", lista->tel);
+      printf("%s\n", lista->endereco);
+      printf("%d\n", lista->cep);
+      printf("%s\n", lista->dataNascimento);
+      aux = aux->prox;
+  }
+  printf("\n");
+  free(aux);
+}
+
+void* inserir_contato(No** lista){
+    No* aux = *lista;
     No* novo = (No*)malloc(sizeof(No));
-    char* teste;
-    strcpy(novo->nome,teste);
+
+    strcpy(novo->nome,le_string(101));
     strcpy(novo->tel,le_string(11));
     strcpy(novo->endereco,le_string(101));
-    strcpy(novo->cpf,le_string(12));
+    novo->cep = le_inteiro();
     strcpy(novo->dataNascimento,le_string(11));
     novo->ante = NULL;
     novo->prox = NULL;
 
-    if(lista == NULL){
-        lista = novo;
+    if(aux == NULL){
+        aux = novo;
         return;
     }
 
@@ -44,13 +68,21 @@ void* inserir_contato(No* lista){
     }
     aux->prox = novo;
     novo->ante = aux;
+    return;
 }
 
 int main(){
 
-    No* lista;
+    No* lista = NULL;
 
-    inserir_contato(lista);
+    inserir_contato(&lista);
+    printf("%s",lista->nome);
+    imprime_lista(lista);
 
+    // printf("%s\n", lista->nome);
+    // printf("%s\n", lista->tel);
+    // printf("%s\n", lista->endereco);
+    // printf("%d\n", lista->cep);
+    // printf("%s\n", lista->dataNascimento);
     return 0;
 }
