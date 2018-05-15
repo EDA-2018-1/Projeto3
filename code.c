@@ -19,7 +19,7 @@ typedef struct head Head;
 struct head{
     No* inicio;
     No* fim;
-}
+};
 
 char* le_string(int n){
     int qtd = n;
@@ -69,12 +69,12 @@ void* inserir_contato(No** lista){
         return;
     }
 
-    while(&(*lista)->prox != NULL){
-        *lista = &(*lista)->prox;
-    }
-    lista->prox = novo;
-    novo->ante = &(*lista);
-    return;
+    // while(&(*lista)->prox != NULL){
+    //     *lista = &(*lista)->prox;
+    // }
+    // lista->prox = novo;
+    // novo->ante = &(*lista);
+    // return;
 }
 
 int main(){
