@@ -15,6 +15,12 @@ struct no{
     No* ante;
 };
 
+typedef struct head Head;
+struct head{
+    No* inicio;
+    No* fim;
+}
+
 char* le_string(int n){
     int qtd = n;
     char* string = (char*)malloc(sizeof(char)*qtd);
@@ -58,25 +64,24 @@ void* inserir_contato(No** lista){
     novo->ante = NULL;
     novo->prox = NULL;
 
-    if(aux == NULL){
-        aux = novo;
+    if(*lista == NULL){
+        *lista = novo;
         return;
     }
 
-    while(aux->prox != NULL){
-        aux = aux->prox;
+    while(&(*lista)->prox != NULL){
+        *lista = &(*lista)->prox;
     }
-    aux->prox = novo;
-    novo->ante = aux;
+    lista->prox = novo;
+    novo->ante = &(*lista);
     return;
 }
 
 int main(){
 
     No* lista = NULL;
-
+    Head* head = NULL;
     inserir_contato(&lista);
-    printf("%s",lista->nome);
     imprime_lista(lista);
 
     // printf("%s\n", lista->nome);
