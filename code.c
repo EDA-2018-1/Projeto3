@@ -75,20 +75,60 @@ void inserir_contato(No** lista){
     return;
 }
 
-int vazia(No* lista){
-    if(lista->prox == NULL){
-        return 1;
-    }else{
-        return 0;
+char* le_nome(){
+    char* nome = (char*)malloc(sizeof(char));
+
+    __fpurge(stdin);
+    scanf("%s", nome);
+    __fpurge(stdin);
+
+    return nome;
+}
+
+void imprime_elemento(No** lista, char* nome){
+    No* aux = *lista;
+
+    while(aux != NULL){
+        if(strcmp(aux->nome,nome) == 0){
+            printf("%s\n", aux->nome);
+            printf("%s\n", aux->tel);
+            printf("%s\n", aux->endereco);
+            printf("%d\n", aux->cep);
+            printf("%s\n", aux->dataNascimento);
+            printf("\n");
+        }
+        aux = aux->prox;
     }
 }
 
-void imprime_contatos(No* lista){
-    if(vazia(lista)){
-        printf("Lista vazia!\n\n");
-    }else{
-        //
+void remove_elemento(No** lista, char* nome){
+    No* aux = *lista;
+
+    if(strcmp(nome,aux->nome) == 0 && aux->ante == NULL){
+        *lista = aux->prox;
+        aux->prox->ante = NULL;
+        free(aux);
+        return;
     }
+    while(aux->prox != NULL){
+        if(strcmp(nome,aux->prox->nome) == 0){
+            No* aux2 = aux->prox;
+            if(aux2->prox != NULL){
+                aux->prox = aux2->prox;
+                aux2->prox->ante = aux;
+            }else aux->prox = NULL;
+            free(aux2);
+        }else {
+            aux = aux->prox;
+        }
+    }
+}
+
+int vazia(No* lista){
+    if(lista->prox == NULL)
+        return 1;
+    else
+        return 0;
 }
 
 void libera_lista(No* lista){
@@ -123,20 +163,26 @@ int menu(void){
 }
 
 void opcao(No* lista, int op){
+    char* nome = (char*)malloc(sizeof(char));
+    __fpurge(stdin);
+    scanf("%s", nome);
+    __fpurge(stdin);
+    
     switch(op){
         case 1:
-            //inserir_contato(&lista);
+            // inserir_contato(&lista);
             break;
         case 2:
-            //remover_contato();
+            // remove_elemento(&lista,nome);
             break;
         case 3:
-            //visualizar_contato();
+            // imprime_elemento(&lista,nome);
             break;
         case 4:
             //imprime_lista(lista);
             break;
         case 5:
+            printf("Tchau! :)\n");
             exit(1);
         default:
             printf("Opção inválida!\n");
@@ -147,25 +193,26 @@ int main(){
 
     No* lista = NULL;
     //Head* head = NULL;
-    
+    inserir_contato(&lista);
+    inserir_contato(&lista);
+    inserir_contato(&lista);
+    imprime_lista(lista);
+    char* nome = (char*)malloc(sizeof(char));
+    __fpurge(stdin);
+    scanf("%s", nome);
+    __fpurge(stdin);
+    // remove_elemento(&lista,nome);
+    // imprime_lista(lista);
+    imprime_elemento(&lista,nome);
 
+
+    // No* lista = NULL;
     // int opt;
-    // No* lista;
 
     // do {
     //     opt = menu();
     //     opcao(lista, opt);
     // } while (opt);
-    
-    
-    inserir_contato(&lista);
-    inserir_contato(&lista);
-    imprime_lista(lista);
 
-    // printf("%s\n", lista->nome);
-    // printf("%s\n", lista->tel);
-    // printf("%s\n", lista->endereco);
-    // printf("%d\n", lista->cep);
-    // printf("%s\n", lista->dataNascimento);
     return 0;
 }
