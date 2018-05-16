@@ -75,14 +75,60 @@ void inserir_contato(No** lista){
     return;
 }
 
+void remove_elemento(No** lista, char* nome){
+    No* aux = *lista;
+
+    if(strcmp(nome,aux->nome) == 0 && aux->ante == NULL){
+        *lista = aux->prox;
+        aux->prox->ante = NULL;
+        free(aux);
+        return;
+    }
+    while(aux->prox != NULL){
+        if(strcmp(nome,aux->prox->nome) == 0){
+            No* aux2 = aux->prox;
+            if(aux2->prox != NULL){
+                aux->prox = aux2->prox;
+                aux2->prox->ante = aux;
+            }else aux->prox = NULL;
+            free(aux2);
+        }else {
+            aux = aux->prox;
+        }
+    }
+}
+
+void imprime_elemento(No** lista, char* nome){
+    No* aux = *lista;
+
+    while(aux != NULL){
+        if(strcmp(aux->nome,nome) == 0){
+            printf("%s\n", aux->nome);
+            printf("%s\n", aux->tel);
+            printf("%s\n", aux->endereco);
+            printf("%d\n", aux->cep);
+            printf("%s\n", aux->dataNascimento);
+            printf("\n");
+        }
+        aux = aux->prox;
+    }
+}
+
 int main(){
 
     No* lista = NULL;
     //Head* head = NULL;
     inserir_contato(&lista);
     inserir_contato(&lista);
+    inserir_contato(&lista);
     imprime_lista(lista);
-
+    char* nome = (char*)malloc(sizeof(char));
+    __fpurge(stdin);
+    scanf("%s", nome);
+    __fpurge(stdin);
+    // remove_elemento(&lista,nome);
+    // imprime_lista(lista);
+    imprime_elemento(&lista,nome);
     // printf("%s\n", lista->nome);
     // printf("%s\n", lista->tel);
     // printf("%s\n", lista->endereco);
