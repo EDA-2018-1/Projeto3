@@ -193,10 +193,15 @@ int main(){
 
     No* lista = NULL;
     //Head* head = NULL;
+    printf("insira um contato: nome, telefone, endereco, cep e data de nascimento\n");
     inserir_contato(&lista);
+    printf("insira um contato: nome, telefone, endereco, cep e data de nascimento\n");
     inserir_contato(&lista);
+    printf("insira um contato: nome, telefone, endereco, cep e data de nascimento\n");
     inserir_contato(&lista);
+    printf("\n\n*------------LISTA:------------*\n\n");
     imprime_lista(lista);
+    printf("insira um contato para visualizar: \n");
     char* nome = (char*)malloc(sizeof(char));
     __fpurge(stdin);
     scanf("%s", nome);
