@@ -75,10 +75,89 @@ void inserir_contato(No** lista){
     return;
 }
 
+int vazia(No* lista){
+    if(lista->prox == NULL)
+        return 1;
+    else
+        return 0;
+}
+
+void imprime_contatos(No* lista){
+    if(vazia(lista)){
+        printf("Lista vazia!\n\n");
+    }else{
+        //
+    }
+}
+
+void libera_lista(No* lista){
+    if(!vazia(lista)){
+        No *proxNo, *atual;
+
+        atual = lista->prox;
+        while(atual != NULL){
+            proxNo = atual->prox;
+            free(atual);
+            atual = proxNo;
+        }
+    }
+}
+
+int menu(void){
+    int opt;
+
+    printf("*----------------------------------*\n");
+    printf("*              AGENDA              *\n");
+    printf("*----------------------------------*\n");
+    printf("* 1- Inserir novo contato          *\n");
+    printf("* 2- Remover contato               *\n");
+    printf("* 3- Visualizar um contato         *\n");
+    printf("* 4- Visualizar todos os contatos  *\n");
+    printf("* 5- Sair                          *\n");
+    printf("*----------------------------------*\n");
+    printf("Opção: ");    
+    scanf("%d", &opt);
+
+    return opt;
+}
+
+void opcao(No* lista, int op){
+
+    switch(op){
+        case 1:
+            //inserir_contato();
+            break;
+        case 2:
+            //remover_contato();
+            break;
+        case 3:
+            //visualizar_contato();
+            break;
+        case 4:
+            //imprime_contatos();
+            break;
+        case 5:
+            exit(1);
+        default:
+            printf("Opção inválida!\n");
+    }
+}
+
 int main(){
 
     No* lista = NULL;
-    Head* head = NULL;
+    //Head* head = NULL;
+    
+
+    // int opt;
+    // No* lista;
+
+    // do {
+    //     opt = menu();
+    //     opcao(lista, opt);
+    // } while (opt);
+    
+    
     inserir_contato(&lista);
     inserir_contato(&lista);
     imprime_lista(lista);
