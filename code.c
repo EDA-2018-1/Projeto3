@@ -38,21 +38,19 @@ int le_inteiro(){
     return var;
 }
 
-void* imprime_lista(No* lista){
-  No* aux = lista;
-  while(aux != NULL){
+void imprime_lista(No* lista){
+  if(lista != NULL){
       printf("%s\n", lista->nome);
       printf("%s\n", lista->tel);
       printf("%s\n", lista->endereco);
       printf("%d\n", lista->cep);
       printf("%s\n", lista->dataNascimento);
-      aux = aux->prox;
+      printf("\n");
+      imprime_lista(lista->prox);
   }
-  printf("\n");
-  free(aux);
 }
 
-void* inserir_contato(No** lista){
+void inserir_contato(No** lista){
     No* aux = *lista;
     No* novo = (No*)malloc(sizeof(No));
 
@@ -69,18 +67,19 @@ void* inserir_contato(No** lista){
         return;
     }
 
-    // while(&(*lista)->prox != NULL){
-    //     *lista = &(*lista)->prox;
-    // }
-    // lista->prox = novo;
-    // novo->ante = &(*lista);
-    // return;
+    while(aux->prox != NULL){
+        aux = aux->prox;
+    }
+    aux->prox = novo;
+    novo->ante = aux;
+    return;
 }
 
 int main(){
 
     No* lista = NULL;
     Head* head = NULL;
+    inserir_contato(&lista);
     inserir_contato(&lista);
     imprime_lista(lista);
 
