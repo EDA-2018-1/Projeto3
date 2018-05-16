@@ -76,10 +76,11 @@ void inserir_contato(No** lista){
 }
 
 int vazia(No* lista){
-    if(lista->prox == NULL)
+    if(lista->prox == NULL){
         return 1;
-    else
+    }else{
         return 0;
+    }
 }
 
 void imprime_contatos(No* lista){
@@ -122,10 +123,9 @@ int menu(void){
 }
 
 void opcao(No* lista, int op){
-
     switch(op){
         case 1:
-            //inserir_contato();
+            //inserir_contato(&lista);
             break;
         case 2:
             //remover_contato();
@@ -134,7 +134,7 @@ void opcao(No* lista, int op){
             //visualizar_contato();
             break;
         case 4:
-            //imprime_contatos();
+            //imprime_lista(lista);
             break;
         case 5:
             exit(1);
