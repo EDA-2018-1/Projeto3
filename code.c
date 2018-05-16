@@ -78,7 +78,7 @@ void inserir_contato(No** lista){
 int main(){
 
     No* lista = NULL;
-    Head* head = NULL;
+    //Head* head = NULL;
     inserir_contato(&lista);
     inserir_contato(&lista);
     imprime_lista(lista);
